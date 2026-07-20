@@ -1,1 +1,39 @@
-<p>login works!</p>
+<!-- Animated Background Canvas -->
+<canvas id="animatedBg"></canvas>
+
+<!-- Mouse tracker circle -->
+<div class="mouse-tracker"></div>
+
+<div class="login-container">
+    <div class="login-box">
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Sign in to your account</p>
+
+        <form class="login-form" (ngSubmit)="onLogin()">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" [(ngModel)]="loginUser.username" name="email"
+                    placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" [(ngModel)]="loginUser.password" name="password"
+                    placeholder="Enter your password" required>
+            </div>
+
+            <div class="remember-forgot">
+                <label class="remember">
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+
+        <p class="signup-link">
+            Don't have an account? <a href="#">Sign up here</a>
+        </p>
+    </div>
+</div>
