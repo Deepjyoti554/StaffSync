@@ -1,1 +1,95 @@
-<p>employee works!</p>
+<div class="page-wrapper">
+
+    <!-- Employee Portal Table -->
+    <div class="ep-portal">
+        <div class="ep-header">
+            <h2>Employee Portal</h2>
+            <button class="ep-add-btn">Add New</button>
+        </div>
+
+        <div class="ep-table-wrapper">
+            <table class="ep-table">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Contact No</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Role</th>
+                        <th>Gender</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Employee rows go here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- New Employee Form -->
+    <div class="ne-modal">
+        <div class="ne-header">
+            <h2>New Employee</h2>
+            <button class="ne-close-btn">Close</button>
+        </div>
+
+        <div class="ne-body">
+            <div class="ne-row">
+                <div class="ne-group">
+                    <label for="empName">Employee Name</label>
+                    <input type="text" id="empName" placeholder="Enter employee name">
+                </div>
+                <div class="ne-group">
+                    <label for="contactNo">Contact No</label>
+                    <input type="text" id="contactNo" placeholder="Enter contact number">
+                </div>
+            </div>
+
+            <div class="ne-row">
+                <div class="ne-group ne-full">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter email">
+                </div>
+            </div>
+
+            <div class="ne-row">
+                <div class="ne-group">
+                    <label for="parentDept">Parent Department</label>
+                    <select id="parentDept">
+                        <option>Select department</option>
+                        <option>Marketing</option>
+                        <option>Development</option>
+                        <option>Human Resources</option>
+                    </select>
+                </div>
+                <div class="ne-group">
+                    <label for="childDept">Child Department</label>
+                    <select id="childDept">
+                        <option>Select department</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ne-row">
+                <div class="ne-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option>Select gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="ne-group">
+                    <label for="role">Role</label>
+                    <input type="text" id="role" placeholder="Enter role">
+                </div>
+            </div>
+
+            <button class="ne-submit-btn">Submit</button>
+        </div>
+    </div>
+
+</div>
