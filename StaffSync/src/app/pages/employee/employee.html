@@ -58,10 +58,9 @@
                 <div class="ne-group">
                     <label for="parentDept">Parent Department</label>
                     <select id="parentDept">
-                        <option>Select department</option>
-                        <option>Marketing</option>
-                        <option>Development</option>
-                        <option>Human Resources</option>
+                        @for(item of parentDepartmentData; track $index){
+                        <option>{{item.departmentName}}</option>
+                        }
                     </select>
                 </div>
                 <div class="ne-group">
