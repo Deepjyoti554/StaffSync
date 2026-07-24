@@ -28,8 +28,14 @@ export interface ParentDepartment {
     departmentLogo: string;
 }
 
+export interface childDepartmentData {
+    childDepartmentId: string,
+    parentDepartmentId: string,
+    departmentName: string
+}
+
 export interface childDepartment {
-    departmentId: number;
-    ParentDepartmentId: number;
-    departmentName: string;
+    message: string,
+    result: boolean,
+    data: childDepartmentData[]
 }

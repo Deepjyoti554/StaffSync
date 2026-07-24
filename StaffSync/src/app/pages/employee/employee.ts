@@ -1,10 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Master } from '../../services/master';
-import { ParentDepartment } from '../../model/Employee';
+import { childDepartment, ParentDepartment } from '../../model/Employee';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './employee.html',
   styleUrl: './employee.css',
 })
@@ -13,6 +15,14 @@ export class Employee implements OnInit {
 
   parentDepartmentData: ParentDepartment[] = [];
 
+  childDepartmentData: childDepartment = {
+    message: "",
+    result: true,
+    data: []
+  };
+
+  selectDepartmentId: any;
+
   ngOnInit(): void {
     this.masterSer.getParentDepartment().subscribe((res: ParentDepartment[]) => {
       console.log(res);
@@ -20,5 +30,11 @@ export class Employee implements OnInit {
     })
   }
 
+  onDepartmentId(id: any) {
+    this.selectDepartmentId = id;
+    this.masterSer.getChildDepartments(this.selectDepartmentId).subscribe((res: childDepartment) => {
+      this.childDepartmentData = res;
+    })
+  }
 
 }

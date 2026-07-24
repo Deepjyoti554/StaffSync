@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { ParentDepartment } from '../model/Employee';
+import { childDepartment, ParentDepartment } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,10 @@ export class Master implements OnInit {
 
   getParentDepartment() {
     return this.http.get<ParentDepartment[]>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/Departments")
+  }
+
+  getChildDepartments(id: number) {
+    return this.http.get<childDepartment>(`https://6a5bf4d864f700df5bd7a2a5.mockapi.io/childDepartment/${id}`);
   }
 
 }
