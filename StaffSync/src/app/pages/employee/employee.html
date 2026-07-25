@@ -23,6 +23,19 @@
                 </thead>
                 <tbody>
                     <!-- Employee rows go here -->
+                    @for(item of employeeDetails; track item.employeeId)
+                    {
+                    <tr>
+                        <td>{{item.employeeId}}</td>
+                        <td>{{item.employeeName}}</td>
+                        <td>{{item.contactNo}}</td>
+                        <td>{{item.emailId}}</td>
+                        <td>{{item.deptId}}</td>
+                        <td>{{item.role}}</td>
+                        <td>{{item.gender}}</td>
+                        <td>{{item.createdDate}}</td>
+                    </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -39,27 +52,30 @@
             <div class="ne-row">
                 <div class="ne-group">
                     <label for="empName">Employee Name</label>
-                    <input type="text" id="empName" placeholder="Enter employee name">
+                    <input [(ngModel)]="employeeObj.employeeName" type="text" id="empName"
+                        placeholder="Enter employee name">
                 </div>
                 <div class="ne-group">
                     <label for="contactNo">Contact No</label>
-                    <input type="text" id="contactNo" placeholder="Enter contact number">
+                    <input [(ngModel)]="employeeObj.contactNo" type="text" id="contactNo"
+                        placeholder="Enter contact number">
                 </div>
             </div>
 
             <div class="ne-row">
                 <div class="ne-group ne-full">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter email">
+                    <input [(ngModel)]="employeeObj.emailId" type="email" id="email" placeholder="Enter email">
                 </div>
             </div>
 
             <div class="ne-row">
                 <div class="ne-group">
                     <label for="parentDept">Parent Department</label>
-                    <select [ngModel]="selectDepartmentId" (ngModelChange)="onDepartmentId($event)" id="parentDept">
+                    <select [(ngModel)]="employeeObj.deptId" (ngModelChange)="onDepartmentId($event)" id="parentDept">
                         @for(item of parentDepartmentData; track $index){
-                        <option [ngValue]="item.departmentId">{{item.departmentName}}</option>
+                        <option [ngValue]="item.departmentId">{{item.departmentName}}
+                        </option>
                         }
                     </select>
                 </div>
@@ -76,7 +92,7 @@
             <div class="ne-row">
                 <div class="ne-group">
                     <label for="gender">Gender</label>
-                    <select id="gender">
+                    <select id="gender" [(ngModel)]="employeeObj.gender">
                         <option>Select gender</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -85,11 +101,11 @@
                 </div>
                 <div class="ne-group">
                     <label for="role">Role</label>
-                    <input type="text" id="role" placeholder="Enter role">
+                    <input [(ngModel)]="employeeObj.role" type="text" id="role" placeholder="Enter role">
                 </div>
             </div>
 
-            <button class="ne-submit-btn">Submit</button>
+            <button (click)="onClick()" class="ne-submit-btn">Submit</button>
         </div>
     </div>
 

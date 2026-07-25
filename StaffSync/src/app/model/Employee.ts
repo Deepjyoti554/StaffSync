@@ -1,5 +1,5 @@
-export class Employee {
-    employeeId: number;
+export class Employees {
+    employeeId: string;
     employeeName: string;
     contactNo: string;
     emailId: string;
@@ -10,14 +10,14 @@ export class Employee {
     createdDate: Date;
 
     constructor() {
-        this.employeeId = 1;
+        this.employeeId = '';
         this.employeeName = '';
         this.contactNo = '';
         this.emailId = '';
         this.deptId = 1;
         this.password = '';
         this.gender = '';
-        this.role = '';
+        this.role = 'Employee';
         this.createdDate = new Date();
     }
 }

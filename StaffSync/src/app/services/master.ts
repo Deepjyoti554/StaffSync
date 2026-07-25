@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { childDepartment, ParentDepartment } from '../model/Employee';
+import { childDepartment, Employees, ParentDepartment } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
@@ -20,4 +20,11 @@ export class Master implements OnInit {
     return this.http.get<childDepartment>(`https://6a5bf4d864f700df5bd7a2a5.mockapi.io/childDepartment/${id}`);
   }
 
+  postEmployeesData(data: Employees) {
+    return this.http.post<Employees>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employees", data);
+  }
+
+  getEmployeesData() {
+    return this.http.get<Employees[]>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employees");
+  }
 }

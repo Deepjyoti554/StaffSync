@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Master } from '../../services/master';
-import { childDepartment, ParentDepartment } from '../../model/Employee';
+import { childDepartment, Employees, ParentDepartment } from '../../model/Employee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -21,12 +21,21 @@ export class Employee implements OnInit {
     data: []
   };
 
+  employeeObj = new Employees();
+
   selectDepartmentId: any;
+
+  employeeDetails: Employees[] = [];
 
   ngOnInit(): void {
     this.masterSer.getParentDepartment().subscribe((res: ParentDepartment[]) => {
       console.log(res);
       this.parentDepartmentData = res;
+    })
+
+    this.masterSer.getEmployeesData().subscribe((res: Employees[]) => {
+      console.log("Employee Details", res);
+      this.employeeDetails = res;
     })
   }
 
@@ -34,6 +43,13 @@ export class Employee implements OnInit {
     this.selectDepartmentId = id;
     this.masterSer.getChildDepartments(this.selectDepartmentId).subscribe((res: childDepartment) => {
       this.childDepartmentData = res;
+    })
+  }
+
+  onClick() {
+    console.log(this.employeeObj);
+    this.masterSer.postEmployeesData(this.employeeObj).subscribe((res: Employees) => {
+      alert("successfully submitted employee data")
     })
   }
 
