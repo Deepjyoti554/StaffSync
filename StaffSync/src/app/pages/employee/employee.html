@@ -33,7 +33,10 @@
                         <td>{{item.deptId}}</td>
                         <td>{{item.role}}</td>
                         <td>{{item.gender}}</td>
-                        <td>{{item.createdDate}}</td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteEmployee(item.employeeId)">Delete</button>
+                            <button class="btn btn-success" (click)="editEmployee(item)">Edit</button>
+                        </td>
                     </tr>
                     }
                 </tbody>
@@ -104,8 +107,12 @@
                     <input [(ngModel)]="employeeObj.role" type="text" id="role" placeholder="Enter role">
                 </div>
             </div>
-
+            @if(isSubmit){
             <button (click)="onClick()" class="ne-submit-btn">Submit</button>
+            }
+            @else{
+            <button (click)="onClick()" class="btn btn-success">Edit</button>
+            }
         </div>
     </div>
 

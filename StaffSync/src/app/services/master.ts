@@ -27,4 +27,8 @@ export class Master implements OnInit {
   getEmployeesData() {
     return this.http.get<Employees[]>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employees");
   }
+
+  deleteEmployeesData(id: any) {
+    return this.http.delete<Employees>(`https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employees/${id}`);
+  }
 }

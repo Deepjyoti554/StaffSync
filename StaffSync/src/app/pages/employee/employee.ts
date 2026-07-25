@@ -21,18 +21,24 @@ export class Employee implements OnInit {
     data: []
   };
 
+  //Two way binding 
   employeeObj = new Employees();
 
   selectDepartmentId: any;
 
   employeeDetails: Employees[] = [];
 
+  isSubmit: boolean = true;
+
   ngOnInit(): void {
     this.masterSer.getParentDepartment().subscribe((res: ParentDepartment[]) => {
       console.log(res);
       this.parentDepartmentData = res;
     })
+    this.getEmployeeDetails();
+  }
 
+  getEmployeeDetails() {
     this.masterSer.getEmployeesData().subscribe((res: Employees[]) => {
       console.log("Employee Details", res);
       this.employeeDetails = res;
@@ -51,6 +57,24 @@ export class Employee implements OnInit {
     this.masterSer.postEmployeesData(this.employeeObj).subscribe((res: Employees) => {
       alert("successfully submitted employee data")
     })
+  }
+
+  deleteEmployee(id: any) {
+    const result = confirm("Do you really want to delete");
+    if (result) {
+      this.masterSer.deleteEmployeesData(id).subscribe((res: Employees) => {
+        alert("Delete the employee details successfully");
+      })
+      this.getEmployeeDetails();
+
+    }
+  }
+
+  editEmployee(employee: Employees) {
+    console.log("Editing Employee details");
+    //Two way binding 
+    this.employeeObj = employee;
+    this.isSubmit = false;
   }
 
 }
