@@ -1,10 +1,10 @@
 <div class="page-wrapper">
 
     <!-- Employee Portal Table -->
-    <div class="ep-portal">
+    <div [class]="isformOpen() ? 'ep-portal' : 'col-12'">
         <div class="ep-header">
             <h2>Employee Portal</h2>
-            <button class="ep-add-btn">Add New</button>
+            <button class="ep-add-btn" (click)="openForm()">Add New</button>
         </div>
 
         <div class="ep-table-wrapper">
@@ -44,11 +44,12 @@
         </div>
     </div>
 
+    @if(isformOpen()){
     <!-- New Employee Form -->
     <div class="ne-modal">
         <div class="ne-header">
             <h2>New Employee</h2>
-            <button class="ne-close-btn">Close</button>
+            <button class="ne-close-btn" (click)="closeForm()">Close</button>
         </div>
 
         <div class="ne-body">
@@ -111,9 +112,10 @@
             <button (click)="onClick()" class="ne-submit-btn">Submit</button>
             }
             @else{
-            <button (click)="onClick()" class="btn btn-success">Edit</button>
+            <button (click)="onClick()" class="btn btn-success" (click)="updateEmployeeDetails()">Edit</button>
             }
         </div>
     </div>
+    }
 
 </div>

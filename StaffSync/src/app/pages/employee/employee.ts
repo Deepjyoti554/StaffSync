@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Master } from '../../services/master';
 import { childDepartment, Employees, ParentDepartment } from '../../model/Employee';
 import { CommonModule } from '@angular/common';
@@ -29,6 +29,17 @@ export class Employee implements OnInit {
   employeeDetails: Employees[] = [];
 
   isSubmit: boolean = true;
+
+  isformOpen = signal<boolean>(true);
+
+  openForm() {
+    this.isformOpen.set(true);
+
+  }
+
+  closeForm() {
+    this.isformOpen.set(false);
+  }
 
   ngOnInit(): void {
     this.masterSer.getParentDepartment().subscribe((res: ParentDepartment[]) => {
@@ -75,6 +86,12 @@ export class Employee implements OnInit {
     //Two way binding 
     this.employeeObj = employee;
     this.isSubmit = false;
+  }
+
+  updateEmployeeDetails() {
+    this.masterSer.updateEmployeesData(this.employeeObj.deptId, this.employeeObj).subscribe((res: any) => {
+      alert("Successfully updated the employee Details")
+    })
   }
 
 }
