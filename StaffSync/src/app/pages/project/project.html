@@ -1,14 +1,14 @@
 <div class="row">
     <!-- project list -->
-    <div class="col-12">
+    <div class="col-12" *ngIf="iscurrentView === 'List'">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-6">
                         <strong>Project List </strong>
                     </div>
                     <div class="col-6 text-end">
-                        <button class="ne-close-btn">Add Projects</button>
+                        <button class="btn btn-primary" (click)="iscurrentView = 'Form'">Add Projects</button>
                     </div>
                 </div>
             </div>
@@ -42,51 +42,53 @@
     </div>
 
     <!-- new project form -->
-    <div class="col-12">
+    <div class="col-12" *ngIf="iscurrentView !== 'List'">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-success">
                 <div class="row">
                     <div class="col-6">
                         <strong>New Project</strong>
                     </div>
                     <div class="col-6 text-end">
-                        <button class="ne-close-btn">Add Projects</button>
+                        <button class="btn btn-primary" (click)="iscurrentView = 'List'">Show Projects</button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form class="row g-3">
+                <form class="row g-3" [formGroup]="projectForm">
                     <div class="col-md-6">
-                        <label for="inputEmail4" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputPassword4" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4">
-                    </div>
-                    <div class="col-12">
-                        <label for="inputAddress" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                    </div>
-                    <div class="col-12">
-                        <label for="inputAddress2" class="form-label">Address 2</label>
-                        <input type="text" class="form-control" id="inputAddress2"
-                            placeholder="Apartment, studio, or floor">
+                        <label for="inputEmail4" class="form-label">Project Name</label>
+                        <input type="text" formControlName="projectName" formControlName="projectName"
+                            class="form-control" id="inputEmail4">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCity" class="form-label">City</label>
-                        <input type="text" class="form-control" id="inputCity">
+                        <label for="inputPassword4" class="form-label">Client Name</label>
+                        <input type="text" formControlName="clientName" class="form-control" id="inputPassword4">
                     </div>
-                    <div class="col-md-4">
-                        <label for="inputState" class="form-label">State</label>
-                        <select id="inputState" class="form-select">
-                            <option selected>Choose...</option>
-                            <option>...</option>
+                    <div class="col-md-6">
+                        <label for="inputState" class="form-label">Lead by Employee Id</label>
+                        <select formControlName="leadByEmployeeId" id="inputState" class="form-select">
+                            <option *ngFor="let data of projectData$ | async" [value]="data.employeeId">
+                                {{data.employeeName}}</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <label for="inputZip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
+                    <div class="col-6">
+                        <label for="inputAddress" class="form-label">start Date</label>
+                        <input type="date" formControlName="startDate" class="form-control" id="inputAddress"
+                            placeholder="1234 Main St">
+                    </div>
+                    <div class="col-6">
+                        <label for="inputAddress2" class="form-label">Contact Person</label>
+                        <input type="text" formControlName="contactPerson" class="form-control" id="inputAddress2"
+                            placeholder="James">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCity" class="form-label">Contact No</label>
+                        <input type="text" formControlName="contactNo" class="form-control" id="inputCity">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputZip" class="form-label">Email Id</label>
+                        <input type="email" formControlName="emailId" class="form-control" id="emailId">
                     </div>
                     <div class="col-12">
                         <div class="form-check">
