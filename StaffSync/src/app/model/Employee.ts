@@ -1,3 +1,5 @@
+import { FormControl } from "@angular/forms";
+
 export class Employees {
     employeeId: string;
     employeeName: string;
@@ -38,4 +40,15 @@ export interface childDepartment {
     message: string,
     result: boolean,
     data: childDepartmentData[]
+}
+
+export interface Projects {
+    projectId: string,
+    projectName: string,
+    clientName: string,
+    startDate: string,
+    leadByEmployeeId: string,
+    contactPerson: string,
+    contactNo: string,
+    emailId: string,
 }
