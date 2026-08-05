@@ -1,13 +1,14 @@
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
+import { FormGroup, ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Master } from '../../services/master';
-import { Employees, Projects } from '../../model/Employee';
+import { EmployeeProject, Employees, Projects } from '../../model/Employee';
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-project',
-  imports: [NgIf, ReactiveFormsModule, NgFor, AsyncPipe],
+  imports: [NgIf, ReactiveFormsModule, NgFor, AsyncPipe, FormsModule],
   templateUrl: './project.html',
   styleUrls: ['./project.css'],
 })
@@ -22,6 +23,8 @@ export class Project implements OnInit {
     this.getProjectDetails();
   }
 
+  //To open the model pop-up
+  myModel = viewChild<ElementRef>('myModel');
 
   iscurrentView: string = "List";
 
@@ -34,34 +37,88 @@ export class Project implements OnInit {
   //using observable to get the data from the service and bind it directly to the HTML using async pipe
   projectData$: Observable<Employees[]> = new Observable<Employees[]>();
 
-  intializeProjects() {
+  //Two way binding using ngModel in formModule
+  employeeProjet: EmployeeProject = new EmployeeProject();
+
+  employeeProjetList: EmployeeProject[] = [];
+
+  intializeProjects(project?: Projects) {
     this.projectForm = new FormGroup<any>({
-      projectId: new FormControl(0),
-      projectName: new FormControl(''),
-      clientName: new FormControl(''),
-      startDate: new FormControl(''),
-      leadByEmployeeId: new FormControl(''),
-      contactPerson: new FormControl(''),
-      contactNo: new FormControl(''),
-      emailId: new FormControl(''),
+      projectId: new FormControl(project ? project.projectId : 0),
+      projectName: new FormControl(project ? project.projectName : ''),
+      clientName: new FormControl(project ? project.clientName : ''),
+      startDate: new FormControl(project ? project.startDate : ''),
+      leadByEmployeeId: new FormControl(project ? project.leadByEmployeeId : ''),
+      contactPerson: new FormControl(project ? project.contactPerson : ''),
+      contactNo: new FormControl(project ? project.contactNo : ''),
+      emailId: new FormControl(project ? project.emailId : ''),
     });
   }
 
   onSaveProject() {
-    debugger;
-    const data = this.projectForm.value;
-    this.masterSer.createProject(data).subscribe((res: any) => {
-      alert("Project created successfully");
-    }, error => {
-      alert("Error while creating project");
-    })
+    const formStatus = this.projectForm.value;
+
+    //Main logic of this project
+    if (formStatus.projectId == 0) {
+      const data = this.projectForm.value;
+      this.masterSer.createProject(data).subscribe((res: any) => {
+        alert("Project created successfully");
+        this.getProjectDetails();
+      }, error => {
+        alert("Error while creating project");
+      })
+    }
+    else {
+      const data = this.projectForm.value;
+      this.masterSer.updateProject(data).subscribe((res: any) => {
+        alert("Project updated successfully");
+        this.getProjectDetails();
+      }, error => {
+        alert("Error while updating project");
+      })
+    }
   }
 
   getProjectDetails() {
-    debugger;
     this.masterSer.getProject().subscribe((res: Projects[]) => {
       this.projectDetails = res;
     })
   }
 
+  onEdit(data: Projects) {
+    console.log("Editing the project");
+
+    this.intializeProjects(data);
+    this.iscurrentView = 'Form';
+  }
+
+  onProjectEmployee(id: any) {
+    //model calls signals and return ElementRef
+    this.getAllEmployeeProject(id);
+    const model = this.myModel();
+    if (model) {
+      model.nativeElement.style.display = 'block'
+    }
+  }
+
+  onCloseModel() {
+    const model = this.myModel();
+    if (model) {
+      model.nativeElement.style.display = 'none'
+    }
+  }
+
+  onAddEmployeeProject() {
+    this.masterSer.createEmployeeProject(this.employeeProjet).subscribe((res: any) => {
+      alert("Project for Employee created successfully")
+    })
+  }
+
+  getAllEmployeeProject(id: any) {
+    this.masterSer.getEmployeeProject().subscribe((res: any) => {
+      const record = res.filter((x: any) => x.employeeId == id);
+      this.employeeProjetList = record;
+      console.log("All Employee Project details: ", record);
+    })
+  }
 } 

@@ -43,7 +43,12 @@
                             <td>{{project.clientName}}</td>
                             <td>{{project.startDate}}</td>
                             <td>{{project.leadByEmployeeId}}</td>
-                            <td></td>
+                            <td>
+                                <button class="btn btn-primary" (click)="onEdit(project)">Edit</button>
+                                <button class="btn mx-2 btn-success"
+                                    (click)="onProjectEmployee(project.projectId)">Project
+                                    Employee</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -103,6 +108,82 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" #myModel>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Project Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="div">
+                    <div class="row">
+                        <div class="col-3">
+                            <select [(ngModel)]="employeeProjet.employeeId" class="form-select" name="" id="">
+                                <option value="0">select Employee</option>
+                                <option *ngFor="let employee of projectData$ | async" [value]="employee.employeeId">
+                                    {{employee.employeeName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input [(ngModel)]="employeeProjet.role" class="form-control" placeholder="role"
+                                type="text">
+                        </div>
+                        <div class="col-3">
+                            <input [(ngModel)]="employeeProjet.assignedDate" class="form-control" type="date">
+                        </div>
+                        <div class="form-control" class="col-3">
+                            <button class="btn btn-sm btn-primary" (click)="onAddEmployeeProject()">Add</button>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="card-body">
+                            <table class="table table-boarderd">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Project ID
+                                        </th>
+                                        <th>
+                                            Project Name
+                                        </th>
+                                        <th>
+                                            Client Name
+                                        </th>
+                                        <th>
+                                            start Date
+                                        </th>
+                                        <th>
+                                            Lead by Employee
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of employeeProjetList">
+                                        <td>{{data.projectId}}</td>
+                                        <td>{{data.role}}</td>
+                                        <td>Ravi</td>
+                                        <td>{{data.assignedDate}}</td>
+                                        <td>{{data.employeeId}}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onCloseModel()">Close</button>
             </div>
         </div>
     </div>

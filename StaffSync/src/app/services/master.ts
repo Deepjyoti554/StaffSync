@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { childDepartment, Employees, ParentDepartment, Projects } from '../model/Employee';
+import { childDepartment, Employees, ParentDepartment, Projects, EmployeeProject } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +42,21 @@ export class Master implements OnInit {
 
   getProject() {
     return this.http.get<Projects[]>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/project");
+  }
+
+  updateProject(obj: Projects) {
+    return this.http.put<Projects[]>(`https://6a5bf4d864f700df5bd7a2a5.mockapi.io/project/${obj.projectId}`, obj);
+  }
+
+  createEmployeeProject(data: EmployeeProject) {
+    return this.http.post<EmployeeProject>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employeeProject", data);
+  }
+
+  getEmployeeProject() {
+    return this.http.get<EmployeeProject[]>("https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employeeProject");
+  }
+
+  getEmployeeProjectById(id: number) {
+    return this.http.get<EmployeeProject[]>(`https://6a5bf4d864f700df5bd7a2a5.mockapi.io/employeeProject/${id}`);
   }
 }

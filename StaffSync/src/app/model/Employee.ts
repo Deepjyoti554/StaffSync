@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { FormControl } from "@angular/forms";
 
 export class Employees {
@@ -51,4 +52,25 @@ export interface Projects {
     contactPerson: string,
     contactNo: string,
     emailId: string,
+}
+
+export class EmployeeProject {
+    projectId: number;
+    employeeId: string;
+    assignedDate: Date;
+    role: string;
+    isActive: boolean;
+    empProjectId: string;
+
+    constructor() {
+        this.projectId = 0;
+        this.employeeId = "";
+        this.assignedDate = new Date();
+        this.role = "";
+        this.isActive = false;
+        this.empProjectId = "";
+
+    }
+
+
 }
